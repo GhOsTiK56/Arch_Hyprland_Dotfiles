@@ -1,0 +1,53 @@
+    OpenRGB v0.9+ (1.0rc2)
+    Commit:  from 
+    Launched: 20260324_141411
+====================================================================================================
+
+1     |Info:    [ProfileManager] Found file: Blue.orp attempting to validate header
+2     |Info:    [ProfileManager] Valid v5 profile found for Blue
+2     |Info:    [ProfileManager] Found file: Black.orp attempting to validate header
+2     |Info:    [ProfileManager] Valid v5 profile found for Black
+70    |Info:    [ResourceManager] Initializing HID interfaces: Success
+70    |Info:    ------------------------------------------------------
+70    |Info:    |               Start device detection               |
+70    |Info:    ------------------------------------------------------
+82    |Info:    ------------------------------------------------------
+82    |Info:    |             Detecting I2C interfaces               |
+82    |Info:    ------------------------------------------------------
+82    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-3 Device 1002:67DF Subsystem: 1DA2:E366
+82    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-1 Device 1002:67DF Subsystem: 1DA2:E366
+82    |Warning: [i2c_smbus_linux] Failed to read i2c device PCI device ID
+82    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-6 Device 0000:0000 Subsystem: 0000:0000
+82    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-4 Device 1002:67DF Subsystem: 1DA2:E366
+83    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-2 Device 1002:67DF Subsystem: 1DA2:E366
+83    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-0 Device 1002:67DF Subsystem: 1DA2:E366
+83    |Warning: [i2c_smbus_linux] Failed to read i2c device PCI device ID
+83    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-7 Device 0000:0000 Subsystem: 0000:0000
+83    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-5 Device 1002:67DF Subsystem: 1DA2:E366
+83    |Info:    ------------------------------------------------------
+83    |Info:    |               Detecting I2C devices                |
+83    |Info:    ------------------------------------------------------
+91    |Info:    ------------------------------------------------------
+91    |Info:    |            Detecting I2C DIMM modules              |
+91    |Info:    ------------------------------------------------------
+91    |Info:    ------------------------------------------------------
+91    |Info:    |               Detecting I2C PCI devices            |
+91    |Info:    ------------------------------------------------------
+129   |Info:    [Sapphire Radeon RX 570/580/590 Nitro+] Registering RGB controller
+130   |Info:    ------------------------------------------------------
+130   |Info:    |               Detecting HID devices                |
+130   |Info:    ------------------------------------------------------
+277   |Info:    [B550M DS3H] Registering RGB controller
+329   |Info:    Detected WinbondGamingKeyboard at /dev/hidraw2, product_string is Gaming Keyboard name is Winbond Gaming Keyboard
+332   |Info:    [KLM] Created new Full 104 key ISO QWERTY with 6 rows and 21 columns containing 109 keys
+332   |Info:    [Gaming Keyboard] Registering RGB controller
+332   |Info:    ------------------------------------------------------
+332   |Info:    |            Detecting libusb HID devices            |
+332   |Info:    ------------------------------------------------------
+5103  |Info:    ------------------------------------------------------
+5103  |Info:    |              Detecting other devices               |
+5103  |Info:    ------------------------------------------------------
+5121  |Info:    [ResourceManager] Calling Post-detection callbacks
+5121  |Info:    ------------------------------------------------------
+5121  |Info:    |                Detection completed                 |
+5121  |Info:    ------------------------------------------------------

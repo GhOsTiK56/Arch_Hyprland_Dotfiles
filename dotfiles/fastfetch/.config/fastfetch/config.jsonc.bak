@@ -1,0 +1,26 @@
+✓ Configuration file generated: `/home/ghostik/.config/fastfetch/config.jsonc`
+* Tip: Use a JSON schema-aware editor for better editing experience
+* Documentation: https://github.com/fastfetch-cli/fastfetch/wiki/Configuration
+y",
+    "de",
+    "wm",
+    "wmtheme",
+    "theme",
+    "icons",
+    "font",
+    "cursor",
+    "terminal",
+    "terminalfont",
+    "cpu",
+    "gpu",
+    "memory",
+    "swap",
+    "disk",
+    "localip",
+    "battery",
+    "poweradapter",
+    "locale",
+    "break",
+    "colors"
+  ]
+}

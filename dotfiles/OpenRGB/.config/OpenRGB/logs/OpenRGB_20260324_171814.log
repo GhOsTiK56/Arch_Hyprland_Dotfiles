@@ -1,0 +1,54 @@
+    OpenRGB v0.9+ (1.0rc2)
+    Commit:  from 
+    Launched: 20260324_171814
+====================================================================================================
+
+2     |Info:    [ProfileManager] Found file: Blue.orp attempting to validate header
+4     |Info:    [ProfileManager] Valid v5 profile found for Blue
+4     |Info:    [ProfileManager] Found file: Black.orp attempting to validate header
+4     |Info:    [ProfileManager] Valid v5 profile found for Black
+82    |Info:    [ResourceManager] Initializing HID interfaces: Success
+82    |Info:    ------------------------------------------------------
+82    |Info:    |               Start device detection               |
+82    |Info:    ------------------------------------------------------
+94    |Info:    ------------------------------------------------------
+94    |Info:    |             Detecting I2C interfaces               |
+94    |Info:    ------------------------------------------------------
+94    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-3 Device 1002:67DF Subsystem: 1DA2:E366
+94    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-1 Device 1002:67DF Subsystem: 1DA2:E366
+94    |Warning: [i2c_smbus_linux] Failed to read i2c device PCI device ID
+94    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-6 Device 0000:0000 Subsystem: 0000:0000
+94    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-4 Device 1002:67DF Subsystem: 1DA2:E366
+94    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-2 Device 1002:67DF Subsystem: 1DA2:E366
+94    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-0 Device 1002:67DF Subsystem: 1DA2:E366
+94    |Warning: [i2c_smbus_linux] Failed to read i2c device PCI device ID
+94    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-7 Device 0000:0000 Subsystem: 0000:0000
+95    |Info:    [ResourceManager] Registering I2C interface: /dev/i2c-5 Device 1002:67DF Subsystem: 1DA2:E366
+95    |Info:    ------------------------------------------------------
+95    |Info:    |               Detecting I2C devices                |
+95    |Info:    ------------------------------------------------------
+103   |Info:    ------------------------------------------------------
+103   |Info:    |            Detecting I2C DIMM modules              |
+103   |Info:    ------------------------------------------------------
+103   |Info:    ------------------------------------------------------
+103   |Info:    |               Detecting I2C PCI devices            |
+103   |Info:    ------------------------------------------------------
+140   |Info:    [Sapphire Radeon RX 570/580/590 Nitro+] Registering RGB controller
+141   |Info:    ------------------------------------------------------
+141   |Info:    |               Detecting HID devices                |
+141   |Info:    ------------------------------------------------------
+287   |Info:    [B550M DS3H] Registering RGB controller
+337   |Info:    Detected WinbondGamingKeyboard at /dev/hidraw2, product_string is Gaming Keyboard name is Winbond Gaming Keyboard
+340   |Info:    [KLM] Created new Full 104 key ISO QWERTY with 6 rows and 21 columns containing 109 keys
+340   |Info:    [Gaming Keyboard] Registering RGB controller
+340   |Info:    ------------------------------------------------------
+340   |Info:    |            Detecting libusb HID devices            |
+340   |Info:    ------------------------------------------------------
+377   |Info:    ------------------------------------------------------
+377   |Info:    |              Detecting other devices               |
+377   |Info:    ------------------------------------------------------
+395   |Info:    [ResourceManager] Calling Post-detection callbacks
+395   |Info:    ------------------------------------------------------
+395   |Info:    |                Detection completed                 |
+395   |Info:    ------------------------------------------------------
+395   |Info:    [NetworkServer] Network connection thread started on port 6742
