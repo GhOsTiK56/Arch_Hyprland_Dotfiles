@@ -200,6 +200,79 @@ rm -rf ~/.config/kitty
 stow -D kitty -t ~
 stow kitty -t ~
 ```
+# RCLONE
+
+```
+rice/
+└── dotfiles/
+    ├── fastfetch/             →  .config/fastfetch
+    ├── fish/                  →  .config/fish
+    ├── kitty/                 →  .config/kitty
+    ├── nvim/                  →  .config/nvim
+    ├── rclone/                →  .config/rclone
+    ├── BetterDiscord/         →  .config/BetterDiscord
+    ├── systemd/               →  .config/systemd
+    └── rofi/                  →  .config/rofi
+```
+
+**Аккуратно надо быть с systemd и rclone, там нужно будет заново вызвать systemctl --user list-timers --user и раскидать на таймер и прочее**
+# Основные команды
+Перед первым использованием stow нужно создать правильную структуру пакетов и переместить существующие конфиги из домашней директории в dotfiles. Делается это один раз.
+
+```bash
+# 1. Переходим в директорию dotfiles
+cd ~/Arch_Hyprland_Dotfiles/dotfiles
+
+# 2. Создаём структуру для каждого пакета
+mkdir -p \ 
+		 hypr/.config/hypr \
+         kitty/.config/kitty \
+         btop/.config/btop \
+         dunst/.config/dunst \
+         fastfetch/.config/fastfetch \
+         fish/.config/fish \
+         Kvantum/.config/Kvantum \
+         nvim/.config/nvim \
+         nwg-look/.config/nwg-look \
+         OpenRGB/.config/OpenRGB \
+         qt6ct/.config/qt6ct \
+         rclone/.config/rclone \
+         rofi/.config/rofi \
+         systemd/.config/systemd \
+         waybar/.config/waybar
+
+# 3. Перемещаем существующие конфиги из ~/.config в пакеты
+mv ~/.config/kitty/*    kitty/.config/kitty
+
+for dir in hypr kitty btop dunst fastfetch fish Kvantum nvim nwg-look OpenRGB qt6ct rclone rofi systemd waybar
+        set files ~/.config/$dir/* ~/.config/$dir/.*
+        if test -e ~/.config/$dir
+            mv $files $dir/.config/$dir 2>/dev/null
+        end
+    end
+
+# 4. Удаляем остатки старых папок в домашней директории (на всякий случай)
+for dir in hypr kitty btop dunst fastfetch fish Kvantum nvim nwg-look OpenRGB qt6ct rclone rofi systemd waybar
+    rm -rf ~/.config/$dir
+end
+
+# Установить один пакет (создаёт симлинки)
+stow hypr kitty btop dunst fastfetch fish Kvantum nvim nwg-look OpenRGB qt6ct rclone rofi systemd waybar -t ~
+# Удалить симлинки одного пакета
+stow -D kitty -t ~
+
+# Безопасное обновление после git pull
+stow -R */ -t ~
+```
+
+# Быстрый откат (если что-то сломалось)
+
+```bash
+# Для конкретного пакета
+rm -rf ~/.config/kitty
+stow -D kitty -t ~
+stow kitty -t ~
+```
 
 
 
