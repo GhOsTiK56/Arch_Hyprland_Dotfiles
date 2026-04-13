@@ -7,7 +7,7 @@
 }
 
 window#waybar {
-  background-color: rgba(62, 62, 62, 0.27);
+  background-color: rgba(62, 62, 62, 0.10);
   border-radius: 0;
   transition-property: background-color;
   transition-duration: 0.5s;
@@ -82,20 +82,6 @@ button:hover {
   border-radius: 0 10px 10px 0;
 }
 
-/* Hardware group styles */
-
-#hardware {
-  margin-right: 5px;
-}
-
-#cpu {
-  padding-right: 10px;
-}
-
-#memory {
-  padding-left: 10px;
-}
-
 /* Audio module styles */
 
 #zvuk {
@@ -120,17 +106,6 @@ button:hover {
 }
 #pulseaudio.input.source-muted {
   color: @red;
-}
-
-/* Privacy */
-
-#privacy {
-  background-color: @background;
-  color: @power;
-  border: 1.5px solid @power;
-  padding: 6px 10px;
-  border-radius: 10px;
-  margin-right: 10px;
 }
 
 /* Language */
