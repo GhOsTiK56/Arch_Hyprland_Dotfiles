@@ -27,6 +27,7 @@ set fish_greeting
 
 # Flutter
 set -gx PATH /home/ghostik/Documents/Android/flutter/bin $PATH
+set -gx PATH /home/ghostik/Documents/Android/Sdk $PATH
 
 # npm-global
 set -gx PATH ~/.npm-global/bin $PATH
