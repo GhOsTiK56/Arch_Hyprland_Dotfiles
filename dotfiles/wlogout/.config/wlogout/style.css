@@ -3,14 +3,13 @@
 
 /* Importing pywal colors */
 
-@import url("file:///home/ghostik/.cache/wal/colors-waybar.css");
+@import url("colors.css");
 
 window {
     font-family: Fira Code Medium;
     font-size: 16pt;
-    color:  @foreground; /* text */
+    color:  @foreground;
     background-color: rgba(24, 27, 32, 0.2);
-
 } 
 
 button {
