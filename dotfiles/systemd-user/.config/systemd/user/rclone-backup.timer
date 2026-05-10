@@ -1,0 +1,11 @@
+[Unit]
+Description=Rclone backup timer
+
+[Timer]
+OnUnitActiveSec=72h
+Persistent=true
+AccuracySec=15m
+Unit=rclone-backup.service
+
+[Install]
+WantedBy=timers.target
