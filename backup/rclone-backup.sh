@@ -67,7 +67,7 @@ run_safe() {
 }
 
 # =========================================================
-# ARCHIVE
+# ARCHIVE (ONLY DIRECTORIES)
 # =========================================================
 
 archive() {
@@ -94,13 +94,13 @@ archive() {
 }
 
 # =========================================================
-# SYNC (mirror)
+# SYNC (FILES + DIRECTORIES)
 # =========================================================
 
 sync_folder() {
     local src="$1"
 
-    [[ -d "$src" ]] || return 0
+    [[ -e "$src" ]] || return 0
 
     local name
     name="$(basename "$src")"
@@ -112,22 +112,20 @@ sync_folder() {
 }
 
 # =========================================================
-# COPY (NO DELETE + ALWAYS CREATE FOLDER)
+# COPY (FILES + DIRECTORIES)
 # =========================================================
 
 copy_folder() {
     local src="$1"
 
-    [[ -d "$src" ]] || return 0
+    [[ -e "$src" ]] || return 0
 
     local name
     name="$(basename "$src")"
 
     log "COPY: $src"
 
-    # ВАЖНО: force-empty-dir + explicit directory creation behaviour
     rclone copy "$src" "$REMOTE:$REMOTE_DIR/copy/$name" \
-        --create-empty-src-dirs \
         --log-file "$LOG_FILE"
 }
 
