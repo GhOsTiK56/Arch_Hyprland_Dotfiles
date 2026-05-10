@@ -1,251 +1,150 @@
 #!/usr/bin/env bash
-set -Euo pipefail
-IFS=$'\n\t'
+set -euo pipefail
 
-# =========================
-# BASE
-# =========================
+# =========================================================
+# CONFIG
+# =========================================================
 
 BASE_DIR="$HOME/backup"
 CONFIG_FILE="$BASE_DIR/backup.conf"
-EXCLUDE_FILE="$BASE_DIR/exclude.txt"
 
-[[ -f "$CONFIG_FILE" ]] || {
-    echo "[ERROR] Missing config: $CONFIG_FILE"
-    exit 1
-}
-
-# shellcheck disable=SC1090
+[[ -f "$CONFIG_FILE" ]] || exit 1
 source "$CONFIG_FILE"
-
-: "${REMOTE:?REMOTE not set}"
-: "${REMOTE_DIR:?REMOTE_DIR not set}"
-: "${TEMP_DIR:?TEMP_DIR not set}"
-: "${LOG_DIR:?LOG_DIR not set}"
-: "${TRANSFERS:=4}"
-: "${CHECKERS:=8}"
-: "${KEEP_ARCHIVES:=30}"
-: "${MAX_JOBS:=3}"
-
-DATE="$(date '+%Y-%m-%d_%H-%M-%S')"
 
 mkdir -p "$TEMP_DIR" "$LOG_DIR"
 
-LOG_FILE="$LOG_DIR/backup_$DATE.log"
-SUMMARY_FILE="$LOG_DIR/summary.log"
+# =========================================================
+# LOG
+# =========================================================
 
-# =========================
-# LOGGING
-# =========================
+DATE="$(date '+%Y-%m-%d_%H-%M-%S')"
+LOG_FILE="$LOG_DIR/backup_$DATE.log"
 
 log() {
     echo "[$(date '+%F %T')] $*" | tee -a "$LOG_FILE"
 }
 
-log_info()  { log "[INFO] $*"; }
-log_warn()  { log "[WARN] $*"; }
-log_error() { log "[ERROR] $*"; }
+# =========================================================
+# EXIT STATUS
+# =========================================================
 
-# =========================
-# PROCESS TRACKING
-# =========================
+EXIT_CODE=0
 
-PIDS=()
-EXIT_OK=0
+on_exit() {
+    local code=$?
 
-cleanup() {
-    [[ "${EXIT_OK:-0}" -eq 1 ]] && return 0
-
-    log_warn "Cleanup triggered (abnormal exit)"
-
-    for pid in "${PIDS[@]:-}"; do
-        kill -TERM "$pid" 2>/dev/null || true
-    done
-
-    rm -f "$TEMP_DIR"/*.tar.zst 2>/dev/null || true
-}
-
-trap cleanup INT TERM
-
-# =========================
-# CHECK SPACE
-# =========================
-
-check_free_space() {
-    local available
-    available=$(df --output=avail "$HOME" | tail -1)
-
-    local min=10485760 # 10GB
-
-    if (( available < min )); then
-        log_error "Not enough disk space"
-        exit 1
+    if [[ $code -eq 0 && $EXIT_CODE -eq 0 ]]; then
+        log "Backup finished: SUCCESS"
+    else
+        log "Backup finished: FAILED (exit=$code)"
     fi
+
+    exit $code
 }
 
-check_free_space
+trap on_exit EXIT
 
-# =========================
+# =========================================================
 # EXCLUDES
-# =========================
+# =========================================================
 
-TAR_EXCLUDES=()
+EXCLUDES=()
+EXCLUDE_FILE="$BASE_DIR/exclude.txt"
 
 if [[ -f "$EXCLUDE_FILE" ]]; then
-    while IFS= read -r line; do
+    while read -r line; do
         [[ -z "$line" || "$line" == \#* ]] && continue
-        TAR_EXCLUDES+=(--exclude="$line")
+        EXCLUDES+=(--exclude="$line")
     done < "$EXCLUDE_FILE"
 fi
 
-# =========================
-# ARCHIVE FUNCTION
-# =========================
+# =========================================================
+# SAFE RUN
+# =========================================================
 
-archive_folder() {
-    local SRC="$1"
-
-    [[ -d "$SRC" ]] || {
-        log_warn "Missing $SRC"
-        return
-    }
-
-    local NAME
-    NAME="$(basename -- "$SRC")"
-
-    local ARCHIVE="$TEMP_DIR/${NAME}_${DATE}.tar.zst"
-
-    log_info "Archiving $SRC"
-
-    tar \
-        "${TAR_EXCLUDES[@]}" \
-        --warning=no-file-changed \
-        -cf - \
-        -C "$(dirname "$SRC")" \
-        "$NAME" \
-        | zstd -T0 -6 -o "$ARCHIVE"
-
-    log_info "Uploading $ARCHIVE"
-
-    rclone copy \
-        "$ARCHIVE" \
-        "$REMOTE:$REMOTE_DIR/archive/" \
-        --transfers="$TRANSFERS" \
-        --checkers="$CHECKERS" \
-        --fast-list \
-        --stats 30s \
-        --stats-one-line \
-        --log-level INFO \
-        --log-file "$LOG_FILE"
-
-    rm -f "$ARCHIVE"
+run_safe() {
+    "$@" || EXIT_CODE=1
 }
 
-# =========================
-# SYNC FUNCTION
-# =========================
+# =========================================================
+# ARCHIVE
+# =========================================================
+
+archive() {
+    local src="$1"
+
+    [[ -d "$src" ]] || return 0
+
+    local name archive_file
+    name="$(basename "$src")"
+
+    archive_file="$TEMP_DIR/${name}_${DATE}.tar.zst"
+
+    log "ARCHIVE: $src"
+
+    tar "${EXCLUDES[@]}" -cf - -C "$(dirname "$src")" "$name" \
+        | zstd -T0 -6 -o "$archive_file"
+
+    log "UPLOAD ARCHIVE: $archive_file"
+
+    rclone copy "$archive_file" "$REMOTE:$REMOTE_DIR/archive/" \
+        --log-file "$LOG_FILE"
+
+    rm -f "$archive_file"
+}
+
+# =========================================================
+# SYNC (mirror)
+# =========================================================
 
 sync_folder() {
-    local SRC="$1"
+    local src="$1"
 
-    [[ -d "$SRC" ]] || {
-        log_warn "Missing $SRC"
-        return
-    }
+    [[ -d "$src" ]] || return 0
 
-    local NAME
-    NAME="$(basename -- "$SRC")"
+    local name
+    name="$(basename "$src")"
 
-    log_info "Syncing $SRC"
+    log "SYNC: $src"
 
-    rclone sync \
-        "$SRC" \
-        "$REMOTE:$REMOTE_DIR/sync/$NAME" \
-        --transfers="$TRANSFERS" \
-        --checkers="$CHECKERS" \
-        --fast-list \
-        --multi-thread-streams 4 \
-        --stats 30s \
-        --stats-one-line \
-        --log-level INFO \
+    rclone sync "$src" "$REMOTE:$REMOTE_DIR/sync/$name" \
         --log-file "$LOG_FILE"
 }
 
-# =========================
-# ARCHIVE POOL (SAFE PARALLEL)
-# =========================
+# =========================================================
+# COPY (NO DELETE + ALWAYS CREATE FOLDER)
+# =========================================================
 
-archive_all() {
-    local running=0
+copy_folder() {
+    local src="$1"
 
-    for p in "${ARCHIVE_PATHS[@]}"; do
-        archive_folder "$p" &
-        pid=$!
-        PIDS+=("$pid")
+    [[ -d "$src" ]] || return 0
 
-        ((running++))
+    local name
+    name="$(basename "$src")"
 
-        if (( running >= MAX_JOBS )); then
-            wait -n
-            ((running--))
-        fi
-    done
+    log "COPY: $src"
 
-    wait
-}
-
-# =========================
-# SYNC ALL
-# =========================
-
-sync_all() {
-    for p in "${SYNC_PATHS[@]}"; do
-        sync_folder "$p"
-    done
-}
-
-# =========================
-# RETENTION (SAFE)
-# =========================
-
-cleanup_old_archives() {
-    log_info "Retention cleanup (keep last $KEEP_ARCHIVES days)"
-
-    rclone delete "$REMOTE:$REMOTE_DIR/archive/" \
-        --min-age "${KEEP_ARCHIVES}d" \
-        --include "*.tar.zst" \
-        --log-level INFO \
+    # ВАЖНО: force-empty-dir + explicit directory creation behaviour
+    rclone copy "$src" "$REMOTE:$REMOTE_DIR/copy/$name" \
+        --create-empty-src-dirs \
         --log-file "$LOG_FILE"
 }
 
-# =========================
-# SUMMARY
-# =========================
+# =========================================================
+# RUN
+# =========================================================
 
-summary() {
-    echo "[$(date)] backup done ($DATE)" >> "$SUMMARY_FILE"
+log "Backup started"
 
-    log_info "=== SUMMARY ==="
-    log_info "Archives: ${#ARCHIVE_PATHS[@]}"
-    log_info "Syncs:    ${#SYNC_PATHS[@]}"
-    log_info "Date:     $DATE"
-}
+for p in "${ARCHIVE_PATHS[@]}"; do
+    run_safe archive "$p"
+done
 
-# =========================
-# MAIN
-# =========================
+for p in "${SYNC_PATHS[@]}"; do
+    run_safe sync_folder "$p"
+done
 
-main() {
-    log_info "Backup started"
-
-    archive_all
-    sync_all
-    cleanup_old_archives
-    summary
-
-    log_info "DONE"
-
-    EXIT_OK=1
-}
-
-main
+for p in "${COPY_PATHS[@]}"; do
+    run_safe copy_folder "$p"
+done
