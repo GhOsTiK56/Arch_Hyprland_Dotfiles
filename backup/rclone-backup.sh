@@ -6,7 +6,7 @@ IFS=$'\n\t'
 # BASE
 # =========================
 
-BASE_DIR="$HOME/Backup"
+BASE_DIR="$HOME/backup"
 CONFIG_FILE="$BASE_DIR/backup.conf"
 EXCLUDE_FILE="$BASE_DIR/exclude.txt"
 

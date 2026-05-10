@@ -1,0 +1,24 @@
+[2026-05-10 20:12:57] [INFO] Backup started
+[2026-05-10 20:12:57] [INFO] Archiving /home/ghostik/Obsidian Vaults
+[2026-05-10 20:12:57] [INFO] Archiving /home/ghostik/Games/Saves
+[2026-05-10 20:12:57] [INFO] Uploading /home/ghostik/backup/temp/Obsidian Vaults_2026-05-10_20-12-57.tar.zst
+[2026-05-10 20:12:57] [INFO] Uploading /home/ghostik/backup/temp/Saves_2026-05-10_20-12-57.tar.zst
+2026/05/10 20:13:00 INFO  : Obsidian Vaults_2026-05-10_20-12-57.tar.zst: Copied (new)
+2026/05/10 20:13:00 INFO  :     6.744 MiB / 6.744 MiB, 100%, 6.744 MiB/s, ETA 0s
+2026/05/10 20:13:05 INFO  : Saves_2026-05-10_20-12-57.tar.zst: Copied (new)
+2026/05/10 20:13:05 INFO  :    69.909 MiB / 69.909 MiB, 100%, 11.651 MiB/s, ETA 0s
+[2026-05-10 20:13:05] [INFO] Syncing /home/ghostik/Pictures
+2026/05/10 20:13:39 INFO  : There was nothing to transfer
+2026/05/10 20:13:39 INFO  :           0 B / 0 B, -, 0 B/s, ETA -
+[2026-05-10 20:13:39] [INFO] Syncing /home/ghostik/Somethings
+2026/05/10 20:13:41 INFO  : There was nothing to transfer
+2026/05/10 20:13:41 INFO  :           0 B / 0 B, -, 0 B/s, ETA -
+[2026-05-10 20:13:41] [INFO] Syncing /home/ghostik/Univer
+2026/05/10 20:13:44 INFO  : There was nothing to transfer
+2026/05/10 20:13:44 INFO  :           0 B / 0 B, -, 0 B/s, ETA -
+[2026-05-10 20:13:44] [INFO] Retention cleanup (keep last 30 days)
+[2026-05-10 20:13:45] [INFO] === SUMMARY ===
+[2026-05-10 20:13:45] [INFO] Archives: 2
+[2026-05-10 20:13:45] [INFO] Syncs:    3
+[2026-05-10 20:13:45] [INFO] Date:     2026-05-10_20-12-57
+[2026-05-10 20:13:45] [INFO] DONE
