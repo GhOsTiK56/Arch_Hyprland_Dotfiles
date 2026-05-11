@@ -2,7 +2,7 @@
 Description=Rclone backup timer
 
 [Timer]
-OnUnitActiveSec=72h
+OnCalendar=Sun 03:00
 Persistent=true
 AccuracySec=15m
 Unit=rclone-backup.service
