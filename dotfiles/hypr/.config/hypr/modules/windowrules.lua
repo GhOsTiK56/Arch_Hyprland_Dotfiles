@@ -73,6 +73,17 @@ hl.window_rule({
     no_initial_focus = true,
 })
 
+hl.window_rule({
+    name = "float-audiorelay",
+    match = {
+        class = "com-azefsw-audioconnect-desktop-app-MainKt",
+        title = "AudioRelay",
+    },
+
+    float = true,
+    center = true,
+})
+
 -- Layer rules
 hl.layer_rule({
     name = "blur-logout-dialog",
