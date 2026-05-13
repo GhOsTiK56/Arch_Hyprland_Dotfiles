@@ -49,6 +49,7 @@ hl.window_rule({
     float = true,
     center = true,
     size = "700 900",
+    workspace = "unset"
 })
 
 hl.window_rule({
