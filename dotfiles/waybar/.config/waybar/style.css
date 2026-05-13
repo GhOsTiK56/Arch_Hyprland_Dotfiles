@@ -2,7 +2,13 @@
 
 * {
   font-family:
-    "JetBrainsMono Nerd Font Propo", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    "JetBrainsMono Nerd Font Propo",
+    "Symbols Nerd Font Mono",
+    "Font Awesome 6 Free",
+    Roboto, 
+    Helvetica, 
+    Arial, 
+    sans-serif;
   font-size: 1.01em;
 }
 
