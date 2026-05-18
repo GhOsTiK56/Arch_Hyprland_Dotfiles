@@ -3,133 +3,168 @@
 --------------------------------
 -- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
--- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
 -- Example window rules that are useful
 local suppressMaximizeRule = hl.window_rule({
-    -- Ignore maximize requests from all apps. You'll probably like this.
-    name  = "suppress-maximize-events",
-    match = { class = ".*" },
+	-- Ignore maximize requests from all apps. You'll probably like this.
+	name = "suppress-maximize-events",
+	match = { class = ".*" },
 
-    suppress_event = "maximize",
+	suppress_event = "maximize",
 })
 -- suppressMaximizeRule:set_enabled(false)
 
 hl.window_rule({
-    -- Fix some dragging issues with XWayland
-    name  = "fix-xwayland-drags",
-    match = {
-        class      = "^$",
-        title      = "^$",
-        xwayland   = true,
-        float      = true,
-        fullscreen = false,
-        pin        = false,
-    },
+	-- Fix some dragging issues with XWayland
+	name = "fix-xwayland-drags",
+	match = {
+		class = "^$",
+		title = "^$",
+		xwayland = true,
+		float = true,
+		fullscreen = false,
+		pin = false,
+	},
 
-    no_focus = true,
+	no_focus = true,
 })
-
 
 -- Hyprland-run windowrule
 hl.window_rule({
-    name  = "move-hyprland-run",
-    match = { class = "hyprland-run" },
+	name = "move-hyprland-run",
+	match = { class = "hyprland-run" },
 
-    move  = "20 monitor_h-120",
-    float = true,
+	move = "20 monitor_h-120",
+	float = true,
 })
 
 hl.window_rule({
-    name = "float-telegram",
-    match = {
-        class = "org.telegram.desktop",
-    },
+	name = "float-telegram",
+	match = {
+		class = "org.telegram.desktop",
+	},
 
-    float = true,
-    center = true,
-    size = "700 900",
-    workspace = "unset"
+	float = true,
+	center = true,
+	size = "700 900",
+	workspace = "unset",
 })
 
 hl.window_rule({
-    name = "float-pavucontrol",
-    match = {
-        class = "org.pulseaudio.pavucontrol",
-    },
+	name = "float-pavucontrol",
+	match = {
+		class = "org.pulseaudio.pavucontrol",
+	},
 
-    float = true,
-    center = true,
-    size = "700 500",
+	float = true,
+	center = true,
+	size = "700 500",
 })
 
 hl.window_rule({
-    name = "fix-android-studio-popups",
-    match = {
-        class = "jetbrains-studio",
-        title = "^win(.*)$",
-    },
+	name = "fix-android-studio-popups",
+	match = {
+		class = "jetbrains-studio",
+		title = "^win(.*)$",
+	},
 
-    no_initial_focus = true,
+	no_initial_focus = true,
 })
 
 hl.window_rule({
-    name = "float-audiorelay",
-    match = {
-        class = "com-azefsw-audioconnect-desktop-app-MainKt",
-        title = "AudioRelay",
-    },
+	name = "float-audiorelay",
+	match = {
+		class = "com-azefsw-audioconnect-desktop-app-MainKt",
+		title = "AudioRelay",
+	},
 
-    float = true,
-    center = true,
+	float = true,
+	center = true,
+})
+
+hl.window_rule({
+	name = "matuwall-float",
+	match = {
+		class = "com.kwimy.Matuwall",
+	},
+
+	float = true,
+	border_size = 0,
+	rounding = 20,
+	no_shadow = true,
+	size = "75% 70%",
+	center = true,
 })
 
 -- Layer rules
 hl.layer_rule({
-    name = "blur-logout-dialog",
-    match = {
-        namespace = "logout_dialog",
-    },
+	name = "blur-logout-dialog",
+	match = {
+		namespace = "logout_dialog",
+	},
 
-    blur = true,
+	blur = true,
 })
 
 hl.layer_rule({
-    name = "blur-swaync-control-center",
-    match = {
-        namespace = "swaync-control-center",
-    },
+	name = "blur-swaync-control-center",
+	match = {
+		namespace = "swaync-control-center",
+	},
 
-    blur = true,
+	blur = true,
 })
 
 hl.layer_rule({
-    name = "alpha-swaync-control-center",
-    match = {
-        namespace = "swaync-control-center",
-    },
+	name = "alpha-swaync-control-center",
+	match = {
+		namespace = "swaync-control-center",
+	},
 
-    ignore_alpha = 0.48,
+	ignore_alpha = 0.48,
 })
 
 hl.layer_rule({
-    name = "blur-swaync-notification-window",
+	name = "blur-swaync-notification-window",
 
-    match = {
-        namespace = "swaync-notification-window",
-    },
+	match = {
+		namespace = "swaync-notification-window",
+	},
 
-    blur = true,
+	blur = true,
 })
 
 hl.layer_rule({
-    name = "alpha-swaync-notification-window",
+	name = "alpha-swaync-notification-window",
 
-    match = {
-        namespace = "swaync-notification-window",
-    },
+	match = {
+		namespace = "swaync-notification-window",
+	},
 
-    ignore_alpha = 0.35,
+	ignore_alpha = 0.35,
+})
+
+hl.layer_rule({
+	name = "matuwall-panel",
+
+	match = {
+		namespace = "matuwall",
+	},
+
+	blur = true,
+	ignore_alpha = 0.4,
+})
+
+hl.layer_rule({
+	name = "matuwall-backdrop",
+
+	match = {
+		namespace = "matuwall-backdrop",
+	},
+
+	blur = true,
+	ignore_alpha = 0.2,
+	animation = "fade",
 })
 
 -- "Smart gaps" / "No gaps when only"
