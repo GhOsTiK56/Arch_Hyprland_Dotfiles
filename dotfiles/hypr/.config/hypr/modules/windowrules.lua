@@ -94,6 +94,7 @@ hl.window_rule({
 	no_shadow = true,
 	size = "75% 70%",
 	center = true,
+	workspace = "unset",
 })
 
 -- Layer rules
