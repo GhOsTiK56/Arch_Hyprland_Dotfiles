@@ -127,6 +127,7 @@ button:hover {
   font-weight: 700;
   background-color: @background;
   color: @foreground;
+  margin-right: 5px;
 }
 
 #clock.simple {

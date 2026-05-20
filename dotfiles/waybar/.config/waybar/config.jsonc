@@ -4,12 +4,17 @@
   "margin-left": 0,
   "margin-right": 0,
   "height": 44,
-  "modules-left":  ["group/time", "hyprland/window"],
-  "modules-center": ["hyprland/workspaces"],
+  "modules-left": [
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
   "modules-right": [
     "hyprland/language",
     "group/zvuk",
     "tray",
+    "group/time",
     "custom/notifications"
   ],
   "hyprland/window": {
@@ -28,6 +33,15 @@
   },
   "hyprland/workspaces": {
     "on-click": "activate",
+    "persistent-workspaces": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7"
+    },
     "format": "{icon}",
     "format-icons": {
       "1": "1",
@@ -39,23 +53,28 @@
       "7": "7"
     }
   },
-
   // Audio info
   "group/zvuk": {
     "orientation": "horizontal",
-    "modules": ["pulseaudio#output", "pulseaudio#input"]
+    "modules": [
+      "pulseaudio#output",
+      "pulseaudio#input"
+    ]
   },
-"pulseaudio#output": {
+  "pulseaudio#output": {
     "format": "<span color=\"#DCA561\">󰕾</span> {volume}%",
     "format-muted": "<span color=\"#DCA561\"></span>",
     "format-icons": {
       "headphone": "",
-      "default": ["", "", ""]
+      "default": [
+        "",
+        "",
+        ""
+      ]
     },
-    // вместо toggle mute запускаем GUI
     "on-click": "pavucontrol"
   },
-"pulseaudio#input": {
+  "pulseaudio#input": {
     "format": "{format_source}",
     "format-source": "<span color=\"#DCA561\"></span> {volume}%",
     "format-source-muted": "<span color=\"#DCA561\"></span>",
@@ -66,27 +85,28 @@
   },
   // Time
   "group/time": {
-    "modules": ["clock#simple"],
+    "modules": [
+      "clock#simple"
+    ],
     "orientation": "horizontal"
   },
-"clock#simple": {
-  "format": "{:%H:%M}",
-  "tooltip-format":"<tt>{calendar}</tt>",
-  "calendar": {
-    "mode": "month",
-    "mode-mon-col": 3,
-    "weeks-pos": "left",
-    "on-scroll": 1
-  }
-},
+  "clock#simple": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "left",
+      "on-scroll": 1
+    }
+  },
   "tray": {
     "reverse-direction": true,
     "spacing": 6
   },
   "custom/notifications": {
-  "format": "",
-  "on-click": "swaync-client -t",
-  "tooltip": false
+    "format": "",
+    "on-click": "swaync-client -t",
+    "tooltip": false
+  }
 }
-}
-
