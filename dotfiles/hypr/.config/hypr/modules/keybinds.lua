@@ -25,6 +25,7 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(wallpaper))
 hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(wallpaper_reset))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(wlogout))
+hl.bind("PRINT", hl.dsp.exec_cmd("flameshot gui"))
 
 -- Window Managment
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
@@ -41,15 +42,15 @@ hl.bind(
 
 -- Screenshots
 -- Print -> quick screenshot
-hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -zm region --freeze --raw | wl-copy -t image/png"))
+--hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -zm region --freeze --raw | wl-copy -t image/png"))
 
 -- SUPER + Print -> screenshot with satty editor
-hl.bind(
-	mainMod .. " + PRINT",
-	hl.dsp.exec_cmd(
-		[[sh -c 'hyprshot -zm region --freeze --raw | satty --filename - --early-exit --copy-command="wl-copy -t image/png" --actions-on-enter=save-to-clipboard']]
-	)
-)
+-- hl.bind(
+-- 	mainMod .. " + PRINT",
+-- 	hl.dsp.exec_cmd(
+-- 		[[sh -c 'hyprshot -zm region --freeze --raw | satty --filename - --early-exit --copy-command="wl-copy -t image/png" --actions-on-enter=save-to-clipboard']]
+-- 	)
+-- )
 
 -- Focus movement
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))

@@ -96,7 +96,6 @@
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
-      "weeks-pos": "left",
       "on-scroll": 1
     }
   },

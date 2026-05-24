@@ -25,11 +25,16 @@ end
 set fish_greeting
 
 # Android & Flutter
+
+set -gx ANDROID_HOME /home/ghostik/Documents/Android/Sdk/
+set -gx ANDROID_SDK_ROOT $ANDROID_HOME
+
 set -gx PATH /home/ghostik/Documents/Android/flutter/bin $PATH
 set -gx PATH /home/ghostik/Documents/Android/Sdk $PATH
-set -gx PATH /home/ghostik/Documents/Android/Sdk/cmdline-tools/latest/bin/ $PATH
-set -gx PATH /home/ghostik/Documents/Android/Sdk/platform-tools/ $PATH
-set -gx PATH /home/ghostik/Documents/Android/Sdk/emulator/ $PATH
+
+set -gx PATH $ANDROID_HOME/cmdline-tools/latest/bin/ $PATH
+set -gx PATH $ANDROID_HOME/platform-tools/ $PATH
+set -gx PATH $ANDROID_HOME/emulator/ $PATH
 
 # npm-global
 set -gx PATH ~/.npm-global/bin $PATH

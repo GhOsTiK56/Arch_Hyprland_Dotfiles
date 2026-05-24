@@ -97,6 +97,20 @@ hl.window_rule({
 	workspace = "unset",
 })
 
+hl.window_rule({
+	name = "flameshot-fix",
+	match = {
+		class = "flameshot",
+	},
+
+	float = true,
+	center = true,
+
+	no_shadow = true,
+
+	workspace = "unset",
+})
+
 -- Layer rules
 hl.layer_rule({
 	name = "blur-logout-dialog",
