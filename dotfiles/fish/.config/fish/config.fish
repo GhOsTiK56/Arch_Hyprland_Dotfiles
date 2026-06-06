@@ -35,6 +35,3 @@ set -gx PATH /home/ghostik/Documents/Android/Sdk $PATH
 set -gx PATH $ANDROID_HOME/cmdline-tools/latest/bin/ $PATH
 set -gx PATH $ANDROID_HOME/platform-tools/ $PATH
 set -gx PATH $ANDROID_HOME/emulator/ $PATH
-
-# npm-global
-set -gx PATH ~/.npm-global/bin $PATH
