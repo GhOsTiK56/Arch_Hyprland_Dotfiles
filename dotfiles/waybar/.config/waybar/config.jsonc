@@ -4,32 +4,28 @@
   "margin-left": 0,
   "margin-right": 0,
   "height": 44,
-  "modules-left": [
-    "hyprland/window"
-  ],
-  "modules-center": [
-    "hyprland/workspaces"
-  ],
+  "modules-left": ["hyprland/window"],
+  "modules-center": ["hyprland/workspaces"],
   "modules-right": [
     "hyprland/language",
     "group/zvuk",
     "tray",
     "group/time",
-    "custom/notifications"
+    "custom/notifications",
   ],
   "hyprland/window": {
     "format": "{title}",
     "max-length": 35,
     "rewrite": {
       "": "Hyprland",
-      "kitty": "Terminal"
+      "kitty": "Terminal",
     },
-    "separate-outputs": false
+    "separate-outputs": false,
   },
   "hyprland/language": {
     "format": "<span color=\"#DCA561\"></span> {}",
     "format-en": "EN",
-    "format-ru": "RU"
+    "format-ru": "RU",
   },
   "hyprland/workspaces": {
     "on-click": "activate",
@@ -40,39 +36,32 @@
       "4": "4",
       "5": "5",
       "6": "6",
-      "7": "7"
+      "7": "7",
     },
     "format": "{icon}",
     "format-icons": {
       "1": "1",
       "2": "2",
-      "3": "",
-      "4": "",
-      "5": "󰠮",
+      "3": "3",
+      "4": "4",
+      "5": "5",
       "6": "6",
-      "7": "7"
-    }
+      "7": "7",
+    },
   },
   // Audio info
   "group/zvuk": {
     "orientation": "horizontal",
-    "modules": [
-      "pulseaudio#output",
-      "pulseaudio#input"
-    ]
+    "modules": ["pulseaudio#output", "pulseaudio#input"],
   },
   "pulseaudio#output": {
     "format": "<span color=\"#DCA561\">󰕾</span> {volume}%",
     "format-muted": "<span color=\"#DCA561\"></span>",
     "format-icons": {
       "headphone": "",
-      "default": [
-        "",
-        "",
-        ""
-      ]
+      "default": ["", "", ""],
     },
-    "on-click": "pavucontrol"
+    "on-click": "pavucontrol",
   },
   "pulseaudio#input": {
     "format": "{format_source}",
@@ -81,14 +70,12 @@
     "tooltip": false,
     "on-click": "pavucontrol",
     "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
-    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-",
   },
   // Time
   "group/time": {
-    "modules": [
-      "clock#simple"
-    ],
-    "orientation": "horizontal"
+    "modules": ["clock#simple"],
+    "orientation": "horizontal",
   },
   "clock#simple": {
     "format": "{:%H:%M}",
@@ -96,16 +83,16 @@
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
-      "on-scroll": 1
-    }
+      "on-scroll": 1,
+    },
   },
   "tray": {
     "reverse-direction": true,
-    "spacing": 6
+    "spacing": 6,
   },
   "custom/notifications": {
     "format": "",
     "on-click": "swaync-client -t",
-    "tooltip": false
-  }
+    "tooltip": false,
+  },
 }
