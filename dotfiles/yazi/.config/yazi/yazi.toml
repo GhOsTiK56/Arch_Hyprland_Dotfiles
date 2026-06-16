@@ -63,6 +63,9 @@ download = [
 	{ run = "ya emit download --open %S", desc = "Download and open" },
 	{ run = "ya emit download %S",        desc = "Download" },
 ]
+haruna = [
+    { run = 'haruna "$@"', orphan = true, desc = "Haruna" }
+]
 
 [open]
 rules = [
@@ -84,6 +87,9 @@ rules = [
 	{ mime = "vfs/{absent,stale}", use = "download" },
 	# Fallback
 	{ url = "*", use = [ "open", "reveal" ] },
+]
+prepend_rules = [
+    { mime = "video/*", use = "haruna" },
 ]
 
 [tasks]
